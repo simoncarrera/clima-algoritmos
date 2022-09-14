@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        $.ajax({
+            url:"https://api.openweathermap.org/data/2.5/forecast?lat=-34.6179427&lon=-58.4040479&appid=c60f437882b899fadf0916715abc3183&units=metric",
+            dataType: "json",
+            success: function(dato){
+                let datemax = ''
+                let datemin = ''
+                var wheatermaxC = 0
+                var wheater = dato['list']
+                var wheatermax = 0
+                var wheatermin = 0
+                var wheaterminC = wheater[0]['main']['temp_min']
+                //console.log(wheaterminC)
+                wheater.forEach((value, key) => {
+                    let keys = dato['list'][key]
+                    console.log(keys)
+                    wheatermax = keys['main']['temp_max']
+                    wheatermin = keys['main']['temp_min']
+                    console.log(wheatermax)
+                    console.log(wheatermin)
+                    if(wheatermax > wheatermaxC){
+                        wheatermaxC = wheatermax
+                        datemax = keys['dt_txt']
+                    }
+                    if(wheaterminC > wheatermin){
+                        wheaterminC = wheatermin
+                        datemin = keys['dt_txt']
+                    } 
+                });
+                console.log(wheaterminC)
+                console.log(wheatermaxC)
+                console.log(datemax)
+                console.log(datemin)
+                document.write('El dia con mayor temperatura fue el '+ datemax + ' con una temperatura de '+ wheatermaxC +'<br>')
+                document.write('El dia con menor temperatura fue el '+ datemin + ' con una temperatura de '+ wheaterminC)
+            }
+        })
+    </script>
+</body>
+</html>
