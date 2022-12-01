@@ -1,0 +1,20 @@
+.card{
+    border: solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 15px;
+    min-width: 200px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10%;
+}
+#datos{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.imagen{
+    width: 100px;
+}
+.card p{
+    font-size: 13px;
+}

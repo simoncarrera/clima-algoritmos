@@ -1,0 +1,69 @@
+<html>
+    <head>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script>           
+            var latitud = -34.6140489;
+            var longitud = -58.4078955;
+            $.ajax({                
+                url: 'https://api.openweathermap.org/data/2.5/forecast?lat=-34.6140489&lon=-58.4078955&appid=2be41a993eaf59fb2c6d4e960c4a2e5f&units=metric&lang=sp',
+                dataType: 'json',
+                success: function(datosv){
+                    let humedad = ''
+                    datos = datosv,
+                    clima = datosv['list']
+                    let wheater = ''   
+                    let weatherESP = ''
+                    let img = ''
+                    let tempmin = 0
+                    let dia = ''
+                    let hora = ''
+                    let fecha = ''
+                    let date = ''
+                    let s = ''
+                    let climaMax = 0
+                    let dias = ["Domingo","Lunes", "Martes","Miercoles","Jueves","Viernes","Sabado"];
+                    clima.forEach((value, key) => {
+                        keys = clima[key]
+                        wheater = keys['weather'][0]['main']
+                        climaMax = keys['main']['temp_max']
+                        tempmin = keys['main']['temp_min']
+                        date = keys['dt']
+                        humedad = keys['main']['humidity']
+                        fecha = new Date(date * 1000)
+                        hora = fecha.getHours()
+                        dia = dias[fecha.getDay()];
+                        if(wheater == 'Clouds'){
+                            img = 'clouds.png'
+                            weatherESP = 'nublado'
+                        }
+                        else if(wheater == 'Clear'){
+                            img ='clear.jpg'
+                            weatherESP = 'despejado'
+                        }
+                        else if(wheater == 'Rain'){
+                            img = 'rain.png'
+                            weatherESP = 'lluvia'
+                        }
+                        s += `<div class="card">
+                                <img class="imagen"src="img/${img}" alt="img">
+                                 <div class="card-body">
+                                    <h2>Clima</h2>
+                                    <p> clima: ${weatherESP}</p>
+                                    <p> día: ${dia} hora:  ${hora}:00hs</p>
+                                    <p> temperatura: </p>
+                                    <p>max: ${climaMax} min: ${tempmin} hum: ${humedad}%</p>
+                                </div>
+                            </div>`
+                                
+                    });
+                    $("#datos").html(s);  
+                }
+            });            
+        </script> 
+    </head>
+    <body>   
+        <div id="headder"></div>
+        <div id="datos"></div>
+    </body>
+</html>

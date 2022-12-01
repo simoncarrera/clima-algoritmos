@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script&gt;</script>
+    <title></title>
+    <style>
+        .col
+        {
+            width: 30px;
+            height: 30px;
+            background-color: bisque;        
+        }
+        .bb{
+            display: flex;
+
+        }
+    
+    </style>
+   
+    <script>
+        /*
+        $(document).ready(
+            function()
+            {
+
+            }
+        );
+        */
+
+
+
+        $(document).ready(function(){
+            s = '<table border="1">';        
+            for(i=1; i < 10; i++)
+            {
+                s +=  "<tr>";
+                for(x=1; x < 10; x++)
+                {
+                    s +=  "<td class='col' id = " + i + "x" + x + " >" + (i * x) + "</td>";    
+                }
+                s +=  "</tr>";
+            }
+
+//            <td class="col" id="9x7" style="background-color: bisque;">63</td>
+
+
+
+            s += "</table>";
+            //document.getElementById("contenedor").innerHTML = s;
+            $("#contenedor").html(s);
+
+
+            $(".col").hover(function(){
+                id = $(this).attr('id');
+                arr = id.split("x");
+                $("#conteo").html("celda:"+id);
+                celda_1 = "#" + arr[0] + "x1";
+                celda_2 = "#1x" + arr[1];
+
+                $(celda_1).css("background-color", "yellow");
+                $(celda_2).css("background-color", "yellow");
+                //$("#").css("background-color", "yellow");
+
+                $(this).css("background-color", "yellow");
+            }, function(){
+                $(this).css("background-color", "bisque");
+                $(celda_1).css("background-color", "bisque");
+                $(celda_2).css("background-color", "bisque");
+            });            
+
+            $(".col").click(function() {
+               
+                alert($(this).html());
+            });              
+           var suma = 0;
+           $(".col").mouseover(function(){
+               suma += 1;
+               $("#suma").html("pasaste" + suma + "sobre las celdas");
+
+           });
+         
+        });
+
+
+       
+    </script>
+</head>
+<body>
+   
+    <div id="contenedor"> </div> 
+        <div id="suma">: </div>
+        <div id="conteo">celda:</div> </div>
+     
+
+
+</body>
+</html>
